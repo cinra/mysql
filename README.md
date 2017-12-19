@@ -17,7 +17,8 @@ http://mysql.local
 ```sh
 $ bin/c dc build
 $ bin/c dc start
-$ docker exec mysql_mysql mysql -u mysql_study -p3030 mysql_study < develop.sql
+$ bin/c dc ssh mysql_mysql
+$ mysql -u mysql_study -p mysql_study < develop.sql #PW: 3030
 ```
 
 ### Start
