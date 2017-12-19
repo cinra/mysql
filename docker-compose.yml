@@ -1,0 +1,37 @@
+version: '2'
+services:
+  wp:
+    build: ./www
+    container_name: mysql_wp
+    volumes:
+      - ./www/html/assets:/var/www/html/assets
+    ports:
+      - 80:80
+    links:
+      - mysql
+    environment:
+      DOMAIN: mysql.local
+      APACHE_DOCROOT: /var/www/html
+      APACHE_LOG_DIR: /var/log/apache2
+      PROJECT_NAME: mysql_study
+      WP_DB_HOST: mysql:3306
+      WP_DB_NAME: mysql_study
+      WP_DB_USER: mysql_study
+      WP_DB_PASSWORD: 3030
+  mysql:
+    build: ./mysql
+    container_name: mysql_mysql
+    ports:
+      - 3306:3306
+    working_dir: /sql
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./sql:/sql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mysql_study
+      MYSQL_USER: mysql_study
+      MYSQL_PASSWORD: 3030
+volumes:
+  db-data:
+    driver: local
